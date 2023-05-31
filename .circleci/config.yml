@@ -234,9 +234,9 @@ jobs:
 
   cloudfront-update:
     docker:
-      # Docker image here that supports AWS CLI
+      - image: amazon/aws-cli
     steps:
-      # Checkout code from git
+      - chekout
       - run:
           name: Install dependencies
           command: |
@@ -266,7 +266,6 @@ cleanup:
               # your code here
             fi
             
-
 workflows:
   default:
     jobs:
