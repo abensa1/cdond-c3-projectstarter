@@ -41,7 +41,7 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - chekout
+      - checkout
       - restore_cache:
           keys: [frontend-test]
       - run:
@@ -55,7 +55,7 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - chekout
+      - checkout
       - restore_cache:
           keys: [backend-test]
       - run:
