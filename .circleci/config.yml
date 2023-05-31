@@ -30,7 +30,7 @@ jobs:
           name: Back-end build
           command: |
              cd backend
-             nmp install
+             npm install
              npm run build
 
       - save_cache:
