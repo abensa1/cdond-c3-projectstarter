@@ -206,6 +206,8 @@ jobs:
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
                 curl https://kvdb.io/6x3pcdHw3SEhP5aEWxLaze/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+            else
+                curl https://kvdb.io/6x3pcdHw3SEhP5aEWxLaze/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '0'
             fi
   
   deploy-frontend:
