@@ -3,8 +3,6 @@ version: 2.1
 commands:
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
-    parameters:
-      # Add parameter here   
     steps:
       - run:
           name: Destroy environments
@@ -19,10 +17,6 @@ commands:
             # aws s3 rm s3://udapeople-ab073456 --recursive
   revert-migrations:
     description: Revert the migration and update the key value
-    parameters:
-      # Add parameter here
-      workflow_id:
-          type: string 
     steps:
       - run:
           name: Revert migrations
