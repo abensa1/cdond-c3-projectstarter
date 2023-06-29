@@ -3,10 +3,13 @@
     path: /home/ubuntu
     state: directory
 
-- name: Extract artifact
+- name: check directory
   become: true
   shell: |
     pwd
+
+- name: Extract artifact
+  become: true
   unarchive:
     src: files/artifact.tar.gz
     dest: /home/ubuntu
