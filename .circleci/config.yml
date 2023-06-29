@@ -152,9 +152,9 @@ jobs:
             aws ec2 describe-instances \
               --query "Reservations[*].Instances[*].PublicIpAddress" \
               --filters Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0-7} \
-              --output text >> .circleci/ansible/inventory.txt
-            cat .circleci/ansible/inventory.txt
-            wc -l .circleci/ansible/inventory.txt
+              --output text >> /root/project/.circleci/ansible/inventory.txt
+            cat /root/project/.circleci/ansible/inventory.txt
+            wc -l /root/project/.circleci/ansible/inventory.txt
             pwd
       - persist_to_workspace:
           root: ~/
@@ -324,12 +324,12 @@ workflows:
           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
-      - run-migrations:
-          requires: [configure-infrastructure]
-      - deploy-frontend:
-          requires: [run-migrations]
-      - deploy-backend:
-          requires: [run-migrations]
+      # - run-migrations:
+      #     requires: [configure-infrastructure]
+      # - deploy-frontend:
+      #     requires: [run-migrations]
+      # - deploy-backend:
+      #     requires: [run-migrations]
       # - smoke-test:
       #     requires: [deploy-backend, deploy-frontend]
       # - cloudfront-update:
