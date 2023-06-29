@@ -152,14 +152,13 @@ jobs:
             aws ec2 describe-instances \
               --query "Reservations[*].Instances[*].PublicIpAddress" \
               --filters Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0-7} \
-              --output text >> /root/project/.circleci/ansible/inventory.txt
-            cat /root/project/.circleci/ansible/inventory.txt
-            wc -l /root/project/.circleci/ansible/inventory.txt
-            pwd
+              --output text >> ansible/inventory.txt
+            cat ansible/inventory.txt
+            wc -l ansible/inventory.txt
       - persist_to_workspace:
-          root: ~/
+          root: ansible
           paths:
-            - project/.circleci/ansible/inventory.txt      
+            - inventory.txt      
       - destroy-environment
 
   configure-infrastructure:
@@ -171,7 +170,7 @@ jobs:
       - add_ssh_keys:
           fingerprints: "1e:3d:96:35:ce:53:25:b9:b7:97:54:11:e6:44:1f:f0"
       - attach_workspace:
-          at: ~/
+          at: /tmp/ansible
       - run:
           name: Install dependencies
           command: |
@@ -182,6 +181,7 @@ jobs:
       - run:
           name: Configure server
           command: |
+            pwd
             cd .circleci/ansible
             cat inventory.txt
             ansible-playbook -i inventory.txt configure-server.yml
