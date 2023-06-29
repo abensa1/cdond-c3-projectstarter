@@ -152,11 +152,13 @@ jobs:
             aws ec2 describe-instances \
               --query "Reservations[*].Instances[*].PublicIpAddress" \
               --filters Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0-7} \
-              --output text >> ansible/inventory.txt
-            cat ansible/inventory.txt
-            wc -l ansible/inventory.txt
+              --output text >> backend/inventory.txt
+            cat inventory.txt
+            echo "t2"
+            cat backend/inventory.txt
+
       - persist_to_workspace:
-          root: ansible
+          root: backend
           paths:
             - inventory.txt      
       - destroy-environment
