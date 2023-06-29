@@ -5,6 +5,8 @@
 
 - name: Extract artifact
   become: true
+  shell: |
+    pwd
   unarchive:
     src: files/artifact.tar.gz
     dest: /home/ubuntu
