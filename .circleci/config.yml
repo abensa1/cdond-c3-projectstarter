@@ -374,6 +374,9 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/
+      name: install dependencies
+          command: |
+            yum install -y tar gzip
       - run:
           name: Get old stack workflow id
           command: |
