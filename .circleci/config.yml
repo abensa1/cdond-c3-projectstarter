@@ -262,11 +262,11 @@ jobs:
       - run:
           name: Install dependencies
           command: |
+            pip3 install awscli
             apk add --update ansible openssh-client tar gzip curl nodejs npm
             ansible --version
             # apk add --update ansible tar npm curl
             # apk add --no-cache aws-cli
-            pip3 install awscli
       - run:
           name: Add env vars to .env file
           command: |
