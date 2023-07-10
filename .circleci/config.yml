@@ -271,6 +271,7 @@ jobs:
           name: Add env vars to .env file
           command: |
             echo ENVIRONMENT=$ENVIRONMENT > "./backend/.env"
+            echo $ENVIRONMENT
             echo TYPEORM_CONNECTION=$TYPEORM_CONNECTION >> "./backend/.env"
             echo TYPEORM_MIGRATIONS_DIR=$TYPEORM_MIGRATIONS_DIR >> "./backend/.env"
             echo TYPEORM_ENTITIES=$TYPEORM_ENTITIES >> "./backend/.env"
@@ -357,7 +358,7 @@ jobs:
             export OldWorkflowID=$(cat ~/oldworkflow.txt)
             aws cloudformation deploy \
               --template-file .circleci/files/cloudfront.yml \
-              --stack-name InitialStack \
+              --stack-name InitialStack-${OldWorkflowID} \
               --parameter-overrides WorkflowID="udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \
               --tags project=udapeople
             echo Old Workflow Id: "${OldWorkflowID}"
@@ -388,6 +389,8 @@ jobs:
             export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
                       --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
             echo Stack names: "${STACKS[@]}" 
+
+            echo "$OldWorkflowID vs $CurrentWorkflowID"
 
             if [["$OldWorkflowID" != "$CurrentWorkflowID"]]
             then
